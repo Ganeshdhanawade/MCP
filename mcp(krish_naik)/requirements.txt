@@ -1,0 +1,4 @@
+langchain-groq
+langchain-mcp-adapters
+mcp  ##fast way create the mcp tool client or any server
+langgraph

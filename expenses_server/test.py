@@ -68,6 +68,19 @@ def summarize(start_date, end_date, category=None):
         cur = c.execute(query,params)
         cols = [d[0] for d in cur.description]
         return [dict(zip(cols,r)) for r in cur.fetchall()]
+    
+@mcp.tool()
+def delete_expense(id: int) -> dict:
+    """Delete an expense entry by ID"""
+    with sqlite3.connect(DB_path) as c:
+        cur = c.execute("""DELETE FROM expenses WHERE id = ?"
+        """,
+        (id,)
+        )
+   
+    return {"status": "deleted", "id": cur.lastrowid}
+   
+    
 
 @mcp.resource("expense://categories", mime_type="application/json")
 def categories():
